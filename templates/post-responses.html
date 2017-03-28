@@ -1,0 +1,21 @@
+<h2 class="process-requests">Обработка запросов</h2>
+<div>
+    <div class="tabs-completer"></div>
+    <md-tab-group >
+        <md-tab label="В работе" >
+            <in-work-tab (fileDownloadedAndArchived)="archive.updateState()"></in-work-tab>
+        </md-tab>
+        <md-tab label="Архивные">
+            <archive-tab #archive></archive-tab>
+        </md-tab>
+    </md-tab-group>
+</div>
+
+<div class="update-button-bar">
+    <button md-button class="material-button" (click)="updateAllTabs()" [disabled]="disableUpdateBtn">Обновить</button>
+</div>
+
+
+
+
+

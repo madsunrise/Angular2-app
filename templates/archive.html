@@ -1,0 +1,43 @@
+<div class="archive-page">
+    <div class="period-selector">
+        <md-select placeholder="Период" [(ngModel)]="currentPeriod" (onClose)="onPeriodClick()">
+            <md-option *ngFor="let period of periods"
+                       [value]="period.value">
+                {{ period.viewValue }}
+            </md-option>
+        </md-select>
+    </div>
+
+    <div class="dates-block" >
+            <form class="first-date" #myForm="ngForm" novalidate>
+                <my-date-picker name="dateStart"
+                                [options]="myDatePickerOptions"
+                                (dateChanged)="onDateStartChanged($event)"
+                                [(ngModel)]="dateStart" required></my-date-picker>
+            </form>
+
+            <form class="second-date" #myForm="ngForm" novalidate>
+                <my-date-picker  name="dateEnd"
+                                [options]="myDatePickerOptions"
+                                (dateChanged)="onDateEndChanged($event)"
+                                [(ngModel)]="dateEnd" required></my-date-picker>
+            </form>
+    </div>
+
+
+    <table class="archive-table">
+        <colgroup>
+            <col span="1" style="width: 45%;">
+            <col span="1" style="width: 55%;">
+        </colgroup>
+        <tbody>
+        <tr *ngFor="let item of upis">
+            <td class="archive-table__item-date">{{ item?.date | date:"dd/MM/yyyy HH:mm" }}</td>
+            <td>
+                <img src="resources/img/ic_archive_gray.png"/>
+                <a class="link-action link-action_gray" (click)="download(item)">Загрузить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

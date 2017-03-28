@@ -1,0 +1,21 @@
+<header>
+    <h1>Почтовые отправления</h1>
+    <a href="#">ВЫХОД</a>
+    <md-progress-bar class="loading-bar" *ngIf="queriesComponent.loading" mode="indeterminate"></md-progress-bar>
+</header>
+
+
+
+<div class="wrapper">
+
+    <div class="left-container">
+            <gibdd-queries
+                    (filesUploaded)="responses.updateFirstTab()"
+                    (uploadStarted)="responses.uploadStarted()">
+            </gibdd-queries>
+    </div>
+
+    <div class="right-container">
+        <post-responses #responses></post-responses>
+    </div>
+</div>

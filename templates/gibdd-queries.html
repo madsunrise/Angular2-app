@@ -1,0 +1,61 @@
+    <div class="preparing-request">
+        <h2 class="preparing-request__header">Подготовка запроса</h2>
+    </div>
+
+
+
+<div class="left-content">
+    <div>
+        <div class="request-manual">
+            <h3 class="request-manual__first-line">Сформируйте запрос</h3>
+            <h3 class="request-manual__second-line">из списка txt-файлов</h3>
+        </div>
+
+        <div class="drop-zone" ng2FileDrop
+             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+             [uploader]="uploader"
+             align="center">
+
+            <div>
+                <div class="drop-zone__move">Перетащите</div>
+                <div class="drop-zone__or">или</div>
+                <div class="choose_button">
+                    <span class="choose_button__text">Выберите txt-файлы...</span>
+                    <input class="choose_button__input" type="file" accept=".txt" multiple (change)="onFilesChoosen()" ng2FileSelect [uploader]="uploader"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <table class="input-files-table" >
+        <thead class="input-files-table__head">
+        <tr>
+            <th width="50%">Имя файла</th>
+            <th>Размер</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody >
+        <tr *ngFor="let item of uploader.queue" >
+            <td class="table-row">{{ item?.file?.name }}</td>
+            <td class="table-row" nowrap>{{ item?.file?.size/1024 | number:'.2' }} kB</td>
+            <td class="table-row table-row__remove-item" >
+                <span (click)="removeItem(item)"><img src="../resources/img/ic_clear_black_24px.svg"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="list-control-buttons-bar">
+        <button md-button class="material-button"
+                (click)="uploader.clearQueue()" [disabled]="disableClearButton()">
+            Очистить список
+        </button>
+        <button md-button class="material-button material-button__right"
+                (click)="startUploading()" [disabled]="disableUploadButton()">
+            Отправить запрос
+        </button>
+    </div>
+</div>

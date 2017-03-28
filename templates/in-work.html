@@ -1,0 +1,22 @@
+<div class="in-work-page">
+    <div class="info-block">
+        <h1 class="info-header">Выполненные</h1>
+        <span class="item-counter">{{upis.length}}</span>
+
+
+        <table class="done-files-table">
+            <tbody>
+            <tr *ngFor="let item of upis;">
+                <td class="done-files-table__item-date"> {{ item?.date | date:"dd.MM.yyyy HH:mm" }}</td>
+                <td>
+                    <img src="resources/img/ic_archive_orange.png"/>
+                    <a class="link-action" (click)="downloadAndArchive(item)">Загрузить и архивировать</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <info></info>
+</div>
+
