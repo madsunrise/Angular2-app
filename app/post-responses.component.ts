@@ -17,20 +17,14 @@ export class PostResponsesComponent {
     @ViewChild(ArchiveComponent)
     private archiveTab: ArchiveComponent;
 
-    private disableUpdateBtn: boolean = false;
 
-    updateFirstTab() {
-        this.disableUpdateBtn = false;
-        this.inWorkTab.updateStatus();
+    uploadCompleted() {
+        this.inWorkTab.startCheckingStatus();
     }
 
     updateAllTabs() {
         this.inWorkTab.updateState();
         this.archiveTab.updateState();
-    }
-
-    uploadStarted() {
-        this.disableUpdateBtn = true;
     }
 }
 

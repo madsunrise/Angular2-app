@@ -9,6 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
+const core_2 = require("@angular/core");
+core_2.enableProdMode();
 let AppComponent = class AppComponent {
 };
 AppComponent = __decorate([

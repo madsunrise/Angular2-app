@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {ViewChild} from "@angular/core";
 import {GibddQueriesComponent} from "./gibdd-queries.component";
-import {PingService} from "./ping-service";
 
 @Component({
     selector: 'main-component',

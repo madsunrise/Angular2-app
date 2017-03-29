@@ -20,7 +20,7 @@ let InWorkComponent = class InWorkComponent {
         this.fileDownloadedAndArchived = new core_1.EventEmitter();
     }
     ngOnInit() {
-        this.updateState();
+        this.startCheckingStatus(); // Начинаем опрашивать infoComponent по таймеру на случай, если при загрузке страницы на сервере идет работа
     }
     updateState() {
         console.log("Updating state in InWorkComponent...");
@@ -33,7 +33,17 @@ let InWorkComponent = class InWorkComponent {
         });
     }
     updateStatus() {
+        if (!this.infoComponent.isParsingFiles()) {
+            clearInterval(this.timer); // Тормозим таймер, если сервер закончил работу
+        }
         this.infoComponent.update();
+    }
+    // Начинаем обновлять счетчики после успешной загрузки файлов на сервер
+    startCheckingStatus() {
+        this.updateStatus(); // Без этой строчки clearInterval сразу сотрет таймер
+        this.timer = setInterval(() => {
+            this.updateStatus();
+        }, 1000);
     }
     downloadAndArchive(item) {
         this.upiService.downloadFile(item);
@@ -42,7 +52,6 @@ let InWorkComponent = class InWorkComponent {
             this.upiService.getCompleted().subscribe((data) => {
                 this.zone.run(() => {
                     this.upis = data.json();
-                    console.log("List was updated, size: ", this.upis.length);
                 });
             });
         };

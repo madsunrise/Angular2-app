@@ -3,7 +3,7 @@ import {Upi} from "./upi";
 import {UpiService} from "./upi.service";
 import {Response} from "@angular/http";
 import "rxjs/Rx";
-import {IMyOptions, IMyDateModel} from "mydatepicker";
+import {IMyDateModel, IMyOptions} from "mydatepicker";
 import {FormBuilder} from "@angular/forms";
 
 @Component({
@@ -21,7 +21,7 @@ export class ArchiveComponent implements OnInit {
     ];
     currentPeriod: any = this.periods[0].value;
 
-    constructor(private upiService: UpiService, private formBuilder: FormBuilder) {
+    constructor(private upiService: UpiService) {
     }
 
     private myDatePickerOptions: IMyOptions = {
@@ -87,7 +87,7 @@ export class ArchiveComponent implements OnInit {
             return;
         }
 
-        console.log("Updating data in ArchiveComponent");
+        console.log("Updating state in ArchiveComponent...");
         this.upiService.getArchived(rangeStart, rangeEnd)
             .subscribe((data: Response) => {
                 this.upis = data.json();

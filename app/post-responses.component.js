@@ -14,19 +14,12 @@ require("rxjs/Rx");
 const in_work_component_1 = require("./in-work.component");
 const archive_component_1 = require("./archive.component");
 let PostResponsesComponent = class PostResponsesComponent {
-    constructor() {
-        this.disableUpdateBtn = false;
-    }
-    updateFirstTab() {
-        this.disableUpdateBtn = false;
-        this.inWorkTab.updateStatus();
+    uploadCompleted() {
+        this.inWorkTab.startCheckingStatus();
     }
     updateAllTabs() {
         this.inWorkTab.updateState();
         this.archiveTab.updateState();
-    }
-    uploadStarted() {
-        this.disableUpdateBtn = true;
     }
 };
 __decorate([

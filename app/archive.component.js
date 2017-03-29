@@ -11,11 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const upi_service_1 = require("./upi.service");
 require("rxjs/Rx");
-const forms_1 = require("@angular/forms");
 let ArchiveComponent = class ArchiveComponent {
-    constructor(upiService, formBuilder) {
+    constructor(upiService) {
         this.upiService = upiService;
-        this.formBuilder = formBuilder;
         this.periods = [
             { value: 'day', viewValue: 'День' },
             { value: 'week', viewValue: 'Неделя' },
@@ -73,7 +71,7 @@ let ArchiveComponent = class ArchiveComponent {
         if (rangeStart == 0 || rangeEnd == 0 || rangeStart > rangeEnd) {
             return;
         }
-        console.log("Updating data in ArchiveComponent");
+        console.log("Updating state in ArchiveComponent...");
         this.upiService.getArchived(rangeStart, rangeEnd)
             .subscribe((data) => {
             this.upis = data.json();
@@ -128,7 +126,7 @@ ArchiveComponent = __decorate([
         templateUrl: '../templates/archive.html',
         providers: [upi_service_1.UpiService]
     }), 
-    __metadata('design:paramtypes', [upi_service_1.UpiService, forms_1.FormBuilder])
+    __metadata('design:paramtypes', [upi_service_1.UpiService])
 ], ArchiveComponent);
 exports.ArchiveComponent = ArchiveComponent;
 //# sourceMappingURL=archive.component.js.map

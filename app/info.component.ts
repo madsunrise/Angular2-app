@@ -10,9 +10,11 @@ import {UpiService} from "./upi.service";
 
 
 export class InfoComponent {
-    waitingForSendCount: Number = 0;
-    waitingForSend: String = "Нет записей";
-    waitingForResponse: String[] = [];
+    private waitingForSendCount: Number = 0;
+    private waitingForSend: String = "Нет записей";
+    private waitingForResponse: String[] = [];
+
+    private parsing: boolean = false;
 
     constructor(private infoService: UpiService ) { }
 
@@ -28,10 +30,16 @@ export class InfoComponent {
                 this.waitingForSend = this.waitingForSendCount + " постановлений ожидается к отправке";
             }
 
+            this.parsing =  data.json().parsing;
+
             this.waitingForResponse = data.json().waitForResponse;
             if (this.waitingForResponse == null) {
                 this.waitingForResponse = [];
             }
         });
+    }
+
+    isParsingFiles(): boolean {
+        return this.parsing;
     }
 }

@@ -17,7 +17,6 @@ let GibddQueriesComponent = class GibddQueriesComponent {
         this.pingService = pingService;
         this.loading = false;
         this.filesUploaded = new core_1.EventEmitter();
-        this.uploadStarted = new core_1.EventEmitter();
         this.uploader = new ng2_file_upload_1.FileUploader({ url: app_module_1.serverURL + 'upload' });
         this.uploader.onCompleteItem = (item, response, status, headers) => {
             if (status == 422) {
@@ -31,11 +30,11 @@ let GibddQueriesComponent = class GibddQueriesComponent {
         };
     }
     // Проверяем выбранные файлы на соответствие расширению
-    onFilesChoosen() {
+    checkChoosenFiles() {
         let temp = [];
         let wrongFiles = [];
         for (let item of this.uploader.queue) {
-            if (item.file.name.endsWith(".txt")) {
+            if (item.file.name.toLowerCase().endsWith(".txt")) {
                 temp.push(item);
             }
             else {
@@ -51,6 +50,9 @@ let GibddQueriesComponent = class GibddQueriesComponent {
             alert(message);
         }
     }
+    onFileDrop(file) {
+        this.checkChoosenFiles();
+    }
     removeItem(item) {
         if (!this.loading) {
             item.remove();
@@ -58,7 +60,6 @@ let GibddQueriesComponent = class GibddQueriesComponent {
     }
     startUploading() {
         this.loading = true;
-        this.uploadStarted.emit();
         this.uploader.uploadAll();
     }
     disableClearButton() {
@@ -72,10 +73,6 @@ __decorate([
     core_1.Output(), 
     __metadata('design:type', Object)
 ], GibddQueriesComponent.prototype, "filesUploaded", void 0);
-__decorate([
-    core_1.Output(), 
-    __metadata('design:type', Object)
-], GibddQueriesComponent.prototype, "uploadStarted", void 0);
 GibddQueriesComponent = __decorate([
     core_1.Component({
         selector: 'gibdd-queries',

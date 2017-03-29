@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Output} from "@angular/core";
-import {FileUploader, FileItem} from "ng2-file-upload";
+import {FileItem, FileUploader} from "ng2-file-upload";
 import {serverURL} from "./app.module";
-import {MdSnackBar} from "@angular/material";
 import {PingService} from "./ping-service";
 
 
@@ -18,7 +17,6 @@ export class GibddQueriesComponent {
     public loading: boolean = false;
 
     @Output() filesUploaded = new EventEmitter();
-    @Output() uploadStarted = new EventEmitter();
 
 
     constructor(private pingService: PingService) {
@@ -30,7 +28,7 @@ export class GibddQueriesComponent {
             }
         };
 
-        this.uploader.onCompleteAll = () => {
+        this.uploader.onCompleteAll = () => {       // Callback на завершение загрузки всех файлов
             this.loading = false;
             this.uploader.clearQueue();
             this.filesUploaded.emit();
@@ -38,12 +36,12 @@ export class GibddQueriesComponent {
     }
 
     // Проверяем выбранные файлы на соответствие расширению
-    onFilesChoosen() {
+    checkChoosenFiles() {
         let temp: FileItem[] = [];
         let wrongFiles: string[] = [];
 
         for (let item of this.uploader.queue) {
-            if (item.file.name.endsWith(".txt")) {
+            if (item.file.name.toLowerCase().endsWith(".txt")) {
                 temp.push(item);
             }
             else {
@@ -60,6 +58,10 @@ export class GibddQueriesComponent {
         }
     }
 
+    onFileDrop(file: File) {
+        this.checkChoosenFiles();
+    }
+
 
     removeItem(item: FileItem) {
         if (!this.loading) {
@@ -69,7 +71,6 @@ export class GibddQueriesComponent {
 
     startUploading() {
         this.loading = true;
-        this.uploadStarted.emit();
         this.uploader.uploadAll();
     }
 

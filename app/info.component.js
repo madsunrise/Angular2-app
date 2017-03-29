@@ -16,6 +16,7 @@ let InfoComponent = class InfoComponent {
         this.waitingForSendCount = 0;
         this.waitingForSend = "Нет записей";
         this.waitingForResponse = [];
+        this.parsing = false;
     }
     update() {
         this.infoService.getStatus().subscribe((data) => {
@@ -27,11 +28,15 @@ let InfoComponent = class InfoComponent {
             else {
                 this.waitingForSend = this.waitingForSendCount + " постановлений ожидается к отправке";
             }
+            this.parsing = data.json().parsing;
             this.waitingForResponse = data.json().waitForResponse;
             if (this.waitingForResponse == null) {
                 this.waitingForResponse = [];
             }
         });
+    }
+    isParsingFiles() {
+        return this.parsing;
     }
 };
 InfoComponent = __decorate([
