@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const upi_service_1 = require("./upi.service");
 require("rxjs/Rx");
@@ -15,7 +16,7 @@ const in_work_component_1 = require("./in-work.component");
 const archive_component_1 = require("./archive.component");
 let PostResponsesComponent = class PostResponsesComponent {
     uploadCompleted() {
-        this.inWorkTab.startCheckingStatus();
+        this.inWorkTab.updateState();
     }
     updateAllTabs() {
         this.inWorkTab.updateState();
@@ -23,20 +24,19 @@ let PostResponsesComponent = class PostResponsesComponent {
     }
 };
 __decorate([
-    core_1.ViewChild(in_work_component_1.InWorkComponent), 
-    __metadata('design:type', in_work_component_1.InWorkComponent)
+    core_1.ViewChild(in_work_component_1.InWorkComponent),
+    __metadata("design:type", in_work_component_1.InWorkComponent)
 ], PostResponsesComponent.prototype, "inWorkTab", void 0);
 __decorate([
-    core_1.ViewChild(archive_component_1.ArchiveComponent), 
-    __metadata('design:type', archive_component_1.ArchiveComponent)
+    core_1.ViewChild(archive_component_1.ArchiveComponent),
+    __metadata("design:type", archive_component_1.ArchiveComponent)
 ], PostResponsesComponent.prototype, "archiveTab", void 0);
 PostResponsesComponent = __decorate([
     core_1.Component({
         selector: 'post-responses',
         templateUrl: '../templates/post-responses.html',
         providers: [upi_service_1.UpiService]
-    }), 
-    __metadata('design:paramtypes', [])
+    })
 ], PostResponsesComponent);
 exports.PostResponsesComponent = PostResponsesComponent;
 //# sourceMappingURL=post-responses.component.js.map

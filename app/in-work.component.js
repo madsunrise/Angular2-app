@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const upi_service_1 = require("./upi.service");
 require("rxjs/Rx");
@@ -20,7 +21,7 @@ let InWorkComponent = class InWorkComponent {
         this.fileDownloadedAndArchived = new core_1.EventEmitter();
     }
     ngOnInit() {
-        this.startCheckingStatus(); // Начинаем опрашивать infoComponent по таймеру на случай, если при загрузке страницы на сервере идет работа
+        this.startCheckingStatus(); // Начинаем опрашивать infoComponent по таймеру
     }
     updateState() {
         console.log("Updating state in InWorkComponent...");
@@ -33,45 +34,41 @@ let InWorkComponent = class InWorkComponent {
         });
     }
     updateStatus() {
-        if (!this.infoComponent.isParsingFiles()) {
-            clearInterval(this.timer); // Тормозим таймер, если сервер закончил работу
-        }
         this.infoComponent.update();
     }
-    // Начинаем обновлять счетчики после успешной загрузки файлов на сервер
     startCheckingStatus() {
-        this.updateStatus(); // Без этой строчки clearInterval сразу сотрет таймер
+        this.updateState();
         this.timer = setInterval(() => {
-            this.updateStatus();
-        }, 1000);
+            this.updateState();
+        }, 5 * 1000);
     }
     downloadAndArchive(item) {
-        this.upiService.downloadFile(item);
-        window.onfocus = () => {
+        this.upiService.downloadFile(item); // Скачать файл и через секунду обновить обе вкладки
+        setTimeout(() => {
             this.fileDownloadedAndArchived.emit();
             this.upiService.getCompleted().subscribe((data) => {
                 this.zone.run(() => {
                     this.upis = data.json();
                 });
             });
-        };
+        }, 1000);
     }
 };
 __decorate([
-    core_1.ViewChild(info_component_1.InfoComponent), 
-    __metadata('design:type', info_component_1.InfoComponent)
+    core_1.ViewChild(info_component_1.InfoComponent),
+    __metadata("design:type", info_component_1.InfoComponent)
 ], InWorkComponent.prototype, "infoComponent", void 0);
 __decorate([
-    core_1.Output(), 
-    __metadata('design:type', Object)
+    core_1.Output(),
+    __metadata("design:type", Object)
 ], InWorkComponent.prototype, "fileDownloadedAndArchived", void 0);
 InWorkComponent = __decorate([
     core_1.Component({
         selector: 'in-work-tab',
         templateUrl: '../templates/in-work.html',
         providers: [upi_service_1.UpiService]
-    }), 
-    __metadata('design:paramtypes', [core_1.NgZone, upi_service_1.UpiService])
+    }),
+    __metadata("design:paramtypes", [core_1.NgZone, upi_service_1.UpiService])
 ], InWorkComponent);
 exports.InWorkComponent = InWorkComponent;
 //# sourceMappingURL=in-work.component.js.map

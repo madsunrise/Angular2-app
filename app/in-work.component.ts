@@ -1,4 +1,4 @@
-import {Component, NgZone, ViewChild, Output, EventEmitter} from "@angular/core";
+import {Component, EventEmitter, NgZone, Output, ViewChild} from "@angular/core";
 import {Upi} from "./upi";
 import {UpiService} from "./upi.service";
 import {Response} from "@angular/http";
@@ -15,13 +15,15 @@ export class InWorkComponent {
     @ViewChild(InfoComponent)
     private infoComponent: InfoComponent;
 
-    upis: Upi[] = [];
+    private upis: Upi[] = [];
 
-    constructor(private zone:NgZone, private upiService: UpiService){
+    private timer: any;
+
+    constructor(private zone:NgZone, private upiService: UpiService) {
     }
 
-    ngOnInit(){
-        this.updateState();
+    ngOnInit() {
+        this.startCheckingStatus(); // Начинаем опрашивать infoComponent по таймеру
     }
 
     public updateState() {
@@ -37,25 +39,32 @@ export class InWorkComponent {
         });
     }
 
-    public updateStatus() {
+    private updateStatus() {
         this.infoComponent.update();
     }
+
+
+    private startCheckingStatus() {
+        this.updateState();
+        this.timer = setInterval(() => {
+            this.updateState();
+        }, 5*1000);
+    }
+
 
     @Output() fileDownloadedAndArchived = new EventEmitter();
 
     downloadAndArchive(item: Upi) {
-        this.upiService.downloadFile(item);
-        window.onfocus = () => {
+        this.upiService.downloadFile(item);     // Скачать файл и через секунду обновить обе вкладки
+        setTimeout(() => {
             this.fileDownloadedAndArchived.emit();
             this.upiService.getCompleted().subscribe((data: Response) => {
                 this.zone.run(() => {
                     this.upis = data.json();
-                    console.log("List was updated, size: ", this.upis.length);
                 })
             });
-        }
+        }, 1000);
     }
-
 }
 
 

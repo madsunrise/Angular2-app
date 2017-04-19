@@ -1,6 +1,7 @@
 <div class="info-block">
     <h1 class="info-header">Готовые к отправке</h1>
     <span class="item-counter">{{ waitingForSendCount }}</span>
+    <md-spinner *ngIf="isParsingFiles()"></md-spinner>
     <div class="info"> {{ waitingForSend }} </div>
 </div>
 

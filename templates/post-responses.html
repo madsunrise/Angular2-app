@@ -1,9 +1,11 @@
-<h2 class="process-requests">Обработка запросов</h2>
-<div>
+<div class="header-wrapping">
+    <h2 class="column-header process-requests">Обработка запросов</h2>
+</div>
+<div style="flex: 1; overflow-y: auto;">
     <div class="tabs-completer"></div>
     <md-tab-group >
-        <md-tab label="В работе" >
-            <in-work-tab (fileDownloadedAndArchived)="archive.updateState()"></in-work-tab>
+        <md-tab label="В работе">
+            <in-work-tab (fileDownloadedAndArchived)="archive.updateState()" ></in-work-tab>
         </md-tab>
         <md-tab label="Архивные">
             <archive-tab #archive></archive-tab>
@@ -11,8 +13,8 @@
     </md-tab-group>
 </div>
 
-<div class="update-button-bar">
-    <button md-button class="material-button" (click)="updateAllTabs()" [disabled]="disableUpdateBtn">Обновить</button>
+<div class="footer-bar helper-flex-center update-button-bar">
+    <button md-button class="material-button" (click)="updateAllTabs()">Обновить</button>
 </div>
 
 

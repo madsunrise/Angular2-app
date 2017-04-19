@@ -1,5 +1,5 @@
-    <div class="preparing-request">
-        <h2 class="preparing-request__header">Подготовка запроса</h2>
+    <div class="header-wrapping">
+        <h2 class="column-header header-wrapping__header">Подготовка запроса</h2>
     </div>
 
 
@@ -14,6 +14,7 @@
         <div class="drop-zone" ng2FileDrop
              [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
              [uploader]="uploader"
+             (onFileDrop)="onFileDrop($event)"
              align="center">
 
             <div>
@@ -21,12 +22,13 @@
                 <div class="drop-zone__or">или</div>
                 <div class="choose_button">
                     <span class="choose_button__text">Выберите txt-файлы...</span>
-                    <input class="choose_button__input" type="file" accept=".txt" multiple (change)="onFilesChoosen()" ng2FileSelect [uploader]="uploader"/>
+                    <input class="choose_button__input" type="file" accept=".txt" multiple (change)="checkChoosenFiles()" ng2FileSelect [uploader]="uploader"/>
                 </div>
             </div>
 
         </div>
     </div>
+
 
 
     <table class="input-files-table" >
@@ -40,7 +42,7 @@
         <tbody >
         <tr *ngFor="let item of uploader.queue" >
             <td class="table-row">{{ item?.file?.name }}</td>
-            <td class="table-row" nowrap>{{ item?.file?.size/1024 | number:'.2' }} kB</td>
+            <td class="table-row" nowrap>{{ item?.file?.size/1024 | number : '1.0-1' }} kB</td>
             <td class="table-row table-row__remove-item" >
                 <span (click)="removeItem(item)"><img src="../resources/img/ic_clear_black_24px.svg"></span>
             </td>
@@ -48,7 +50,7 @@
         </tbody>
     </table>
 
-    <div class="list-control-buttons-bar">
+    <div class="footer-bar helper-flex-between list-control-buttons-bar">
         <button md-button class="material-button"
                 (click)="uploader.clearQueue()" [disabled]="disableClearButton()">
             Очистить список

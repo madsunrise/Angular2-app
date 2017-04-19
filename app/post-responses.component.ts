@@ -19,7 +19,7 @@ export class PostResponsesComponent {
 
 
     uploadCompleted() {
-        this.inWorkTab.startCheckingStatus();
+        this.inWorkTab.updateState();
     }
 
     updateAllTabs() {

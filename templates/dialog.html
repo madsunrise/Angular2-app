@@ -1,0 +1,4 @@
+<h2>{{title}}</h2>
+<p style="margin: 15px 0 5px 0">{{message}}</p>
+<p *ngFor="let item of items">{{item}}</p>
+<button style="margin-top: 15px" md-raised-button (click)="dialogRef.close()">Закрыть</button>

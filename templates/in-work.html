@@ -9,14 +9,13 @@
             <tr *ngFor="let item of upis;">
                 <td class="done-files-table__item-date"> {{ item?.date | date:"dd.MM.yyyy HH:mm" }}</td>
                 <td>
-                    <img src="resources/img/ic_archive_orange.png"/>
+                    <img src="resources/img/ic_archive_blue.png"/>
                     <a class="link-action" (click)="downloadAndArchive(item)">Загрузить и архивировать</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-
     <info></info>
 </div>
 

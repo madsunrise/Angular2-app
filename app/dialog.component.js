@@ -9,20 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const material_1 = require("@angular/material");
 const core_1 = require("@angular/core");
-const core_2 = require("@angular/core");
-const gibdd_queries_component_1 = require("./gibdd-queries.component");
-let MainComponent = class MainComponent {
+/**
+ * Created by developer on 4/19/17.
+ */
+let Dialog = class Dialog {
+    constructor(dialogRef) {
+        this.dialogRef = dialogRef;
+    }
 };
-__decorate([
-    core_2.ViewChild(gibdd_queries_component_1.GibddQueriesComponent),
-    __metadata("design:type", gibdd_queries_component_1.GibddQueriesComponent)
-], MainComponent.prototype, "queriesComponent", void 0);
-MainComponent = __decorate([
+Dialog = __decorate([
     core_1.Component({
-        selector: 'main-component',
-        templateUrl: '../templates/main.html'
-    })
-], MainComponent);
-exports.MainComponent = MainComponent;
-//# sourceMappingURL=main.component.js.map
+        selector: 'dialog1',
+        templateUrl: '../templates/dialog.html',
+    }),
+    __metadata("design:paramtypes", [material_1.MdDialogRef])
+], Dialog);
+exports.Dialog = Dialog;
+//# sourceMappingURL=dialog.component.js.map

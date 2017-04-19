@@ -4,7 +4,6 @@ import {UpiService} from "./upi.service";
 import {Response} from "@angular/http";
 import "rxjs/Rx";
 import {IMyDateModel, IMyOptions} from "mydatepicker";
-import {FormBuilder} from "@angular/forms";
 
 @Component({
     selector: 'archive-tab',
@@ -40,8 +39,11 @@ export class ArchiveComponent implements OnInit {
     private request24h: boolean = true;    // Флаг, который равен true только если юзер запросил данные за последние 24 часа (период: сегодня) и при первой загрузке
 
     ngOnInit(){
+        let dayAgo = new Date();
+        dayAgo.setDate(dayAgo.getDate() - 1);
+        this.dateStart = {date: {year: dayAgo.getFullYear(), month: dayAgo.getMonth() + 1, day: dayAgo.getDate()}};
+
         let currentDate = new Date();
-        this.dateStart = {date: {year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate()}};
         this.dateEnd = {date: {year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate()}};
         this.updateState();
     }
@@ -84,6 +86,7 @@ export class ArchiveComponent implements OnInit {
         let rangeStart = this.getDateStartInMillis();
         let rangeEnd = this.getDateEndInMillis();
         if (rangeStart == 0 || rangeEnd == 0 || rangeStart > rangeEnd) {
+            this.upis = [];
             return;
         }
 

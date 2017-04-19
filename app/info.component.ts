@@ -27,7 +27,7 @@ export class InfoComponent {
                 this.waitingForSend = "Нет записей";
             }
             else {
-                this.waitingForSend = this.waitingForSendCount + " постановлений ожидается к отправке";
+                this.waitingForSend = this.waitingForSendCount + " постановлений ожидаются к отправке";
             }
 
             this.parsing =  data.json().parsing;

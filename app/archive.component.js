@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const upi_service_1 = require("./upi.service");
 require("rxjs/Rx");
@@ -32,8 +33,10 @@ let ArchiveComponent = class ArchiveComponent {
         this.request24h = true; // Флаг, который равен true только если юзер запросил данные за последние 24 часа (период: сегодня) и при первой загрузке
     }
     ngOnInit() {
+        let dayAgo = new Date();
+        dayAgo.setDate(dayAgo.getDate() - 1);
+        this.dateStart = { date: { year: dayAgo.getFullYear(), month: dayAgo.getMonth() + 1, day: dayAgo.getDate() } };
         let currentDate = new Date();
-        this.dateStart = { date: { year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate() } };
         this.dateEnd = { date: { year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate() } };
         this.updateState();
     }
@@ -69,6 +72,7 @@ let ArchiveComponent = class ArchiveComponent {
         let rangeStart = this.getDateStartInMillis();
         let rangeEnd = this.getDateEndInMillis();
         if (rangeStart == 0 || rangeEnd == 0 || rangeStart > rangeEnd) {
+            this.upis = [];
             return;
         }
         console.log("Updating state in ArchiveComponent...");
@@ -125,8 +129,8 @@ ArchiveComponent = __decorate([
         selector: 'archive-tab',
         templateUrl: '../templates/archive.html',
         providers: [upi_service_1.UpiService]
-    }), 
-    __metadata('design:paramtypes', [upi_service_1.UpiService])
+    }),
+    __metadata("design:paramtypes", [upi_service_1.UpiService])
 ], ArchiveComponent);
 exports.ArchiveComponent = ArchiveComponent;
 //# sourceMappingURL=archive.component.js.map
